@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root1">
+        <div>
+          <div></div>
+        </div>
+        <div>
+          <h1>
+              <div id="node1"></div>
+          </h1>
+          <div></div>
+        </div>
+      </div>
+    
+      <div id="root2">
+        <div>
+          <div></div>
+        </div>
+        <div>
+          <h1>
+              <div id="node2"></div>
+          </h1>
+          <div></div>
+        </div>
+      </div>
+
+      <script>
+            var root1 = document.getElementById("root1");
+            var root2 = document.getElementById("root2");
+            var node1 = document.getElementById("node1");
+            function getPath(root1, root2, node1) {
+                // Get path
+                var path = [];
+                var parent = node1;
+                var child;
+                while(parent !== root1) {
+                    child = parent;
+                    parent = child.parentNode;
+                    var index = Array.from(parent.childNodes).indexOf(child);
+                    path.unshift(index);
+                } 
+                return path;
+            }
+            function getNodeFromPath(root, path) {
+                var result = root; 
+                for (let i = 0; i < path.length; i++) {
+                    result = result.childNodes[path[i]];
+                }
+                return result;
+            }
+            function getSymmetricalNode(root1, root2, node1) {
+                var path = getPath(root1, root2, node1);
+                var finalNode = getNodeFromPath(root2, path);
+
+                return finalNode;
+            }
+
+            let x = getSymmetricalNode(root1, root2, node1);
+            console.log(x===document.getElementById("node2"));
+
+
+      </script>
+</body>
+</html>
